@@ -64,6 +64,7 @@ crashlytics-build.properties
 /app/config/parameters.yml
 /app/config/parameters.ini
 /src/Resources/config/app_config.yml
+/src/Resources/config
 
 
 # Managed by Composer
