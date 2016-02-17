@@ -1,29 +1,28 @@
 # SfMicroframeWork-test
 Quick and dirty creation of app then transmutation to microframework Traits of symfony
- - [Facebook php SDK][FbPhpSdk] (not really used)
- - YAML parser
- - Twig
- - Symfony/Config (Loading Resources|Cache Config)
- - Option resolver
- - Request/Response
- - Routing
- - Symfony MicroService Trait
- - Autoload via composer configuration
 
 ### Version
 0.0.1
 
 ### Todos
 
- - ?/ add '[symfony/config][symfony/config]' to manage configuration
-    - [Definition][config-definition]
- - See how to create an installation
-    - gestion des tags dans la version du composer.json
- - create local [statis][statis] to manage package
- - manage build phpunit/phpspec with either ant of [Phing][phing]
- - manage build with [Grunt][grunt] (creation of tag)
- - if db try using tool that manage db data structure evolution with [Phinx][phinx]
- - add build Status, Scrutinizer Quality Score, Code Coverage and why not SensioLabsInsight
+ - [x] YAML parser
+ - [x] Twig
+ - [x] Symfony/Config (Loading Resources|Cache Config)
+ - [x] Option resolver
+ - [x] Request/Response
+ - [x] Routing
+ - [x] Symfony MicroService Trait
+ - [x] Autoload via composer configuration
+ - [ ] ?/ add '[symfony/config][symfony/config]' to manage configuration
+    - [ ] [Definition][config-definition]
+ - [x] See how to create an installation
+    - [x] gestion des tags dans la version du composer.json
+ - [ ] create local [Statis][statis] to manage package
+ - [ ] manage build phpunit/phpspec with either ant of [Phing][phing]
+ - [ ] manage build with [Grunt][grunt] (creation of tag)
+ - [ ] if db try using tool that manage db data structure evolution with [Phinx][phinx]
+ - [ ] add build Status, Scrutinizer Quality Score, Code Coverage and why not SensioLabsInsight
 
 License
 ----
