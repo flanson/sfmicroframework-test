@@ -1,4 +1,8 @@
 {
+    "name": "flanson/sfmicroframework-test",
+    "description": "This project is a test of sf microframework",
+    "type": "project",
+    "license": "MIT",
     "require": {
         "symfony/symfony": "^3.0",
         "sensio/framework-extra-bundle": "^3.0"
@@ -8,5 +12,11 @@
             "App\\": "src/"
         }
     },
-    "version": "1.0.0"
+    "authors": [
+        {
+            "name": "flanson",
+            "email": "f.lanson@eurelis.com"
+        }
+    ],
+    "minimum-stability": "dev"
 }

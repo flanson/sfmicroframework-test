@@ -23,6 +23,7 @@ Quick and dirty creation of app then transmutation to microframework Traits of s
  - manage build phpunit/phpspec with either ant of [Phing][phing]
  - manage build with [Grunt][grunt] (creation of tag)
  - if db try using tool that manage db data structure evolution with [Phinx][phinx]
+ - add build Status, Scrutinizer Quality Score, Code Coverage and why not SensioLabsInsight
 
 License
 ----
