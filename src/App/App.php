@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
@@ -72,12 +73,12 @@ class App extends Kernel
         $bundles = array(
             new FrameworkBundle(),
             new TwigBundle(),
+            new SensioFrameworkExtraBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
             $bundles[] = new WebProfilerBundle();
         }
-
         return $bundles;
     }
 
@@ -91,8 +92,11 @@ class App extends Kernel
         ));
 
         if (isset($this->bundles['WebProfilerBundle'])) {
-            $c->loadFromExtension('web_profiler', ['toolbar' => true]);
+            $c->loadFromExtension('web_profiler', ['toolbar' => true, 'intercept_redirects' => false]);
         }
+        $c->loadFromExtension('twig', ['paths' => [
+            __DIR__.self::DEFAULT_TEMPLATE_DIRECTORY => 'theme',
+        ]]);
 
         // add configuration parameters
         $c->setParameter('mail_sender', 'user@example.com');
@@ -173,6 +177,11 @@ class App extends Kernel
         return $this->config;
     }
 
+    public function index()
+    {
+        return $this->container->get('templating')->renderResponse('@theme/test.html.twig');
+    }
+
     /**
      * @param array $resourceDirectories
      */
@@ -192,9 +201,10 @@ class App extends Kernel
             ->setParameter('facebookAccessToken', $this->getConfig()->getAccessToken())
             ->setParameter('shortDomainList', $this->getConfig()->getAuthShortyDomains())
             ->setParameter('title', 'Test application Facebook');
-        $content = $this->twigEnv->render("index.html.twig", $this->twigParameterBag->getParametersBag());
-        $response = new Response($content, 200, array('Content-Type' => 'text/html; charset=UTF-8'));
-        $response->send();
+//        $content = $this->twigEnv->render("index.html.twig", $this->twigParameterBag->getParametersBag());
+        return $this->container->get('templating')->renderResponse('@theme/index.html.twig', $this->twigParameterBag->getParametersBag());
+//        $response = new Response($content, 200, array('Content-Type' => 'text/html; charset=UTF-8'));
+//        $response->send();
     }
 
     public function send404()

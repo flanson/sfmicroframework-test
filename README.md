@@ -1,4 +1,4 @@
-# Facebook-test
+# SfMicroframeWork-test
 Quick and dirty creation of app then transmutation to microframework Traits of symfony
  - [Facebook php SDK][FbPhpSdk] (not really used)
  - YAML parser
@@ -19,7 +19,10 @@ Quick and dirty creation of app then transmutation to microframework Traits of s
     - [Definition][config-definition]
  - See how to create an installation
     - gestion des tags dans la version du composer.json
- - See Profiler in result Page
+ - create local [statis][statis] to manage package
+ - manage build phpunit/phpspec with either ant of [Phing][phing]
+ - manage build with [Grunt][grunt] (creation of tag)
+ - if db try using tool that manage db data structure evolution with [Phinx][phinx]
 
 License
 ----
@@ -42,4 +45,15 @@ MIT
    [microframeworkEx2]: <https://github.com/henrikbjorn/Muse/blob/master/src/Kernel.php>
    [config-caching]: <http://symfony.com/doc/current/components/config/caching.html>
    [config-definition]: <http://symfony.com/doc/current/components/config/definition.html>
+   [phinx]: <https://github.com/robmorgan/phinx>
+   [phing]: <https://www.phing.info/>
+   [grunt]: <http://gruntjs.com/>
+   [statis]: <https://getcomposer.org/doc/articles/handling-private-packages-with-satis.md>
 
+<!--
+Check sanity of Application
+[![Build Status](https://travis-ci.org/nicolopignatelli/valueobjects.png?branch=master)](https://travis-ci.org/nicolopignatelli/valueobjects)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/nicolopignatelli/valueobjects/badges/quality-score.png?s=979567c2d791ffbeab12777c60c8edb86776ddcc)](https://scrutinizer-ci.com/g/nicolopignatelli/valueobjects/)
+[![Code Coverage](https://scrutinizer-ci.com/g/nicolopignatelli/valueobjects/badges/coverage.png?s=59dd4a142412a9dcd989870610f1c9f89c19cf48)](https://scrutinizer-ci.com/g/nicolopignatelli/valueobjects/)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/246a2da6-ffdb-4730-9216-647fb7aac383/mini.png)](https://insight.sensiolabs.com/projects/246a2da6-ffdb-4730-9216-647fb7aac383)
+-->
