@@ -1,25 +1,25 @@
 # Facebook-test
 Quick and dirty creation of app then transmutation to microframework Traits of symfony
-  - [Facebook php SDK][FbPhpSdk] (not really used)
-  - YAML parser
-  - Twig
-  - Symfony/Config (Loading Resources|Cache Config)
-  - Option resolver
-  - Request/Response
-  - Routing
-  - Apc autoloader
+ - [Facebook php SDK][FbPhpSdk] (not really used)
+ - YAML parser
+ - Twig
+ - Symfony/Config (Loading Resources|Cache Config)
+ - Option resolver
+ - Request/Response
+ - Routing
+ - Symfony MicroService Trait
+ - Autoload via composer configuration
 
 ### Version
 0.0.1
 
 ### Todos
 
- - ?/ add '[symfony/dependency-injection][symfony/dependency-injection]' to manage services as they should be 
  - ?/ add '[symfony/config][symfony/config]' to manage configuration
     - [Definition][config-definition]
- - Change whole code to use MicroKernel Trait (in order to understand first then use the microKernel) [1][microframework1],[2][microframework2] [ex1][microframeworkEx1],[ex2][microframeworkEx2]
  - See how to create an installation
- - ...
+    - gestion des tags dans la version du composer.json
+ - See Profiler in result Page
 
 License
 ----

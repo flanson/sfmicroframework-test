@@ -33,7 +33,6 @@ class AppRouteCollection
     public function __construct()
     {
         $routes = new RouteCollection();
-        $routes->add('home_route', new Route('', ['controller' => 'foo']));
         $this->routes = $routes;
     }
 }

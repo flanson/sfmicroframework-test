@@ -2,17 +2,22 @@
 
 namespace App;
 
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\TwigBundle\TwigBundle;
+use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Resource\FileResource;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\RouteCollectionBuilder;
 
 /**
  * Created by PhpStorm.
@@ -20,7 +25,7 @@ use Symfony\Component\Routing\RequestContext;
  * Date: 11/02/16
  * Time: 16:19
  */
-class App
+class App extends Kernel
 {
     const CONFIG_FILE_NAME = './../Resources/config/app_config.yml';
     const DEFAULT_TEMPLATE_DIRECTORY = '/../Resources/views';
@@ -49,12 +54,70 @@ class App
 
     /**
      * App constructor.
+     * @param string $environment
+     * @param bool $debug
      */
-    public function __construct()
+    public function __construct($environment, $debug)
     {
+        parent::__construct($environment, $debug);
         $this->loadConfig();
         $this->twigParameterBag = new TwigParameterBag();
         $this->appRouteCollection = new AppRouteCollection();
+    }
+
+    use MicroKernelTrait;
+
+    public function registerBundles()
+    {
+        $bundles = array(
+            new FrameworkBundle(),
+            new TwigBundle(),
+        );
+
+        if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
+            $bundles[] = new WebProfilerBundle();
+        }
+
+        return $bundles;
+    }
+
+    protected function configureContainer(ContainerBuilder $c, LoaderInterface $loader)
+    {
+        // PHP equivalent of config.yml
+        $c->loadFromExtension('framework', array(
+            'secret' => 'S0ME_SECRET',
+            'profiler' => null,
+            'templating' => ['engines' => ['twig']],
+        ));
+
+        if (isset($this->bundles['WebProfilerBundle'])) {
+            $c->loadFromExtension('web_profiler', ['toolbar' => true]);
+        }
+
+        // add configuration parameters
+        $c->setParameter('mail_sender', 'user@example.com');
+
+        // register services
+        $c->register('app.markdown', 'AppBundle\\Service\\Parser\\Markdown');
+    }
+
+    protected function configureRoutes(RouteCollectionBuilder $routes)
+    {
+        // kernel is a service that points to this class
+        // optional 3rd argument is the route name
+        $routes->mount('/_wdt', $routes->import('@WebProfilerBundle/Resources/config/routing/wdt.xml'));
+        $routes->mount('/_profiler', $routes->import('@WebProfilerBundle/Resources/config/routing/profiler.xml'));
+
+        $routes->add('/random/{limit}', 'kernel:randomAction');
+        $routes->add('home_route', 'kernel:run');
+        $routes->add('/', 'kernel:run');
+    }
+
+    public function randomAction($limit)
+    {
+        return new JsonResponse(array(
+            'number' => rand(0, $limit)
+        ));
     }
 
     /**
@@ -124,15 +187,6 @@ class App
      */
     public function run()
     {
-        $request = Request::createFromGlobals();
-        $requestContext = new RequestContext();
-        $requestContext->fromRequest($request);
-        $matcher = new UrlMatcher($this->appRouteCollection->getRoutes(), $requestContext);
-        try {
-            $test = $matcher->matchRequest($request);
-        } catch (ResourceNotFoundException $ex) {
-            $this->send404();
-        }
         $this->twigParameterBag
             ->setParameter('facebookDomain', $this->getConfig()->getFacebookDomain())
             ->setParameter('facebookAccessToken', $this->getConfig()->getAccessToken())
