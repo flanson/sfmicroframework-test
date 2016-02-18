@@ -20,8 +20,7 @@ Quick and dirty creation of app then transmutation to microframework Traits of s
     - [x] gestion des tags dans la version du composer.json
     - [x] close issue via github (web)
     - [x] ajout d'issues dans github
-    - [ ] test de pull request vith feature branching
-    - [ ] test de pull request not via github (web)
+    - [x] test de pull request vith feature branching
  - [ ] create local [Statis][statis] to manage package
  - [ ] manage build phpunit/phpspec with either ant of [Phing][phing]
  - [ ] manage build with [Grunt][grunt] (creation of tag)
