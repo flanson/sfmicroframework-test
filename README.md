@@ -15,7 +15,7 @@ Quick and dirty creation of app then transmutation to microframework Traits of s
  - [x] Symfony MicroService Trait
  - [x] Autoload via composer configuration
  - [ ] ?/ add '[symfony/config][symfony/config]' to manage configuration
-    - [ ] [Definition][config-definition]
+    - [ ] [Definition][config-definition] : [github][config-definition-github]
  - [x] See how to create an installation
     - [x] gestion des tags dans la version du composer.json
     - [x] close issue via github (web)
@@ -48,6 +48,7 @@ MIT
    [microframeworkEx2]: <https://github.com/henrikbjorn/Muse/blob/master/src/Kernel.php>
    [config-caching]: <http://symfony.com/doc/current/components/config/caching.html>
    [config-definition]: <http://symfony.com/doc/current/components/config/definition.html>
+   [config-definition-github]: <https://github.com/symfony/config/tree/master/Definition>
    [phinx]: <https://github.com/robmorgan/phinx>
    [phing]: <https://www.phing.info/>
    [grunt]: <http://gruntjs.com/>
