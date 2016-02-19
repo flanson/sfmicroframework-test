@@ -22,7 +22,7 @@ Quick and dirty creation of app then transmutation to microframework Traits of s
     - [x] ajout d'issues dans github
     - [x] test de pull request vith feature branching
  - [x] create local [Statis][statis] to manage package
-    - [ ] update satis after git commit
+    - [x] update satis after git commit
  - [ ] manage build phpunit/phpspec with either ant of [Phing][phing]
  - [ ] manage build with [Grunt][grunt] (creation of tag)
  - [ ] if db try using tool that manage db data structure evolution with [Phinx][phinx]
