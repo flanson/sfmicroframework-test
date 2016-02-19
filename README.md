@@ -14,8 +14,8 @@ Quick and dirty creation of app then transmutation to microframework Traits of s
  - [x] Routing
  - [x] Symfony MicroService Trait
  - [x] Autoload via composer configuration
- - [ ] ?/ add '[symfony/config][symfony/config]' to manage configuration
-    - [ ] [Definition][config-definition] : [github][config-definition-github]
+ - [x] ?/ add '[symfony/config][symfony/config]' to manage configuration
+    - [x] [Definition][config-definition] : [github][config-definition-github]
  - [x] See how to create an installation
     - [x] gestion des tags dans la version du composer.json
     - [x] close issue via github (web)

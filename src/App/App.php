@@ -44,11 +44,6 @@ class App extends Kernel
     private $config = null;
 
     /**
-     * @var \Twig_Environment
-     */
-    private $twigEnv = null;
-
-    /**
      * @var TwigParameterBag
      */
     private $twigParameterBag;
@@ -86,7 +81,7 @@ class App extends Kernel
     {
         // PHP equivalent of config.yml
         $c->loadFromExtension('framework', array(
-            'secret' => 'S0ME_SECRET',
+            'secret' => 'MY_VERY_OWN_SUPER_SECRET_COMMITED_ON_GITHUB_WHICH_IS_NOT_SO_SECRET_THIS_IS_WHY_CONFIG_IS_BETTER_OFF_IN_A_SEPARATE_FILE',
             'profiler' => null,
             'templating' => ['engines' => ['twig']],
         ));
@@ -145,28 +140,21 @@ class App extends Kernel
             }
             $processor = new Processor();
             $configuration = new Config();
-//            $processedConfiguration = $processor->processConfiguration(
-//                $configuration,
-//                [$configArrayToCache['application_test']]
-//            );
-//            var_dump($processedConfiguration);
-            $cachedConfigCode = '<?php return '.var_export($configArrayToCache, true).';'; // rar :)
+            $processedConfiguration = $processor->processConfiguration(
+                $configuration,
+                [$configArrayToCache]
+            );
+            $cachedConfigCode = '<?php return '.var_export($processedConfiguration, true).';'; // rar :)
             $cachedConfig->write($cachedConfigCode, $resources);
         }
         if (file_exists($cachePath)) {
             $configArray = (array)require $cachePath;
         }
 
-        if (isset($configArray['application'])) {
-            $config = new Config($configArray['application']);
+        if (isset($configArray)) {
+            $config = new Config($configArray);
             $this->config = $config;
         }
-        $resourceDirectories = [__DIR__.self::DEFAULT_TEMPLATE_DIRECTORY];
-        if (isset($configArray['twig_ressource_directory'])) {
-            $templateResourceDirectory = $configArray['twig_ressource_directory'];
-            $resourceDirectories = array_merge($resourceDirectories, [__DIR__.$templateResourceDirectory]);
-        }
-        $this->createTwigEnv($resourceDirectories);
     }
 
     /**
@@ -182,14 +170,6 @@ class App extends Kernel
         return $this->container->get('templating')->renderResponse('@theme/test.html.twig');
     }
 
-    /**
-     * @param array $resourceDirectories
-     */
-    private function createTwigEnv($resourceDirectories)
-    {
-        $twigLoader = new \Twig_Loader_Filesystem($resourceDirectories);
-        $this->twigEnv = new \Twig_Environment($twigLoader);
-    }
 
     /**
      * Main function to launch the application
@@ -201,10 +181,7 @@ class App extends Kernel
             ->setParameter('facebookAccessToken', $this->getConfig()->getAccessToken())
             ->setParameter('shortDomainList', $this->getConfig()->getAuthShortyDomains())
             ->setParameter('title', 'Test application Facebook');
-//        $content = $this->twigEnv->render("index.html.twig", $this->twigParameterBag->getParametersBag());
         return $this->container->get('templating')->renderResponse('@theme/index.html.twig', $this->twigParameterBag->getParametersBag());
-//        $response = new Response($content, 200, array('Content-Type' => 'text/html; charset=UTF-8'));
-//        $response->send();
     }
 
     public function send404()
